@@ -60,7 +60,7 @@ app.post("/mypost", function(req, res){
 	res.send("success");
 })
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 console.log("server is running");
 
 
