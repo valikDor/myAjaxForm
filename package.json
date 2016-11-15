@@ -1,0 +1,27 @@
+{
+  "name": "myajaxform",
+  "version": "1.0.0",
+  "description": "ajaxform",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valikDor/myAjaxForm.git"
+  },
+  "keywords": [
+    "ajaxform"
+  ],
+  "author": "Dorosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/valikDor/myAjaxForm/issues"
+  },
+  "homepage": "https://github.com/valikDor/myAjaxForm#readme",
+  "devDependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
