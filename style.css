@@ -1,0 +1,68 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#menu,
+#content{
+	width: 800px;
+	background-color: lightgreen;
+	margin: 10px auto;
+	overflow: hidden;
+	border-radius: 15px;
+	border-bottom: 3px solid #228B22;
+}
+#menu ul{
+	list-style-type: none;
+}
+#menu ul > li{
+	width: 100px;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	cursor: pointer;
+	background-color: #48D1CC;
+	border: 2px solid #228B22;
+	color: black;
+	border-radius: 15px;
+	text-align: center;
+}
+#menu ul > li.active{
+	background-color: #20B2AA;
+	color:white;
+}
+#content{
+	background-color: lightgrey;
+	border: 3px solid #228B22;
+}
+#content form{
+	margin: 15px;
+	padding-top: 10px;
+}
+#content form label {
+	width: 150px;
+}
+#content form input{
+	margin: 5px;
+}
+.form label{
+	width:200px;
+	float:left;
+}
+table td {
+	border: 1px dotted black;
+	padding: 5px;
+	font-family: Verdana;
+	font-size: 13px;
+	color: blue;
+	font-weight: bold;
+}
+.header{
+	background-color: orange;
+	color: black;
+
+}
+.btn{
+	color: red;
+	padding:1px;
+
+}

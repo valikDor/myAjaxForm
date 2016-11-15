@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css">
+		<script>
+			window.onload= function(){
+				var ul = document.querySelector("#menu ul");
+				var active = document.querySelector("#menu ul li.active");
+
+				ul.onclick = function(event){
+					var target = event.target;
+						if(target.tagName !== "LI") return;
+						active = document.querySelector("#menu ul li.active");
+						active.classList.remove("active");
+						target.classList.add("active");
+						LoadData(target);
+				}
+				LoadData(active);
+
+				postsend.onclick = function(){
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST","/postsend", true);
+					var body = "myInput = " + encodeURIComponent(p1.value);
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4){
+							alert(xhr.responseText);
+			}
+			
+		}
+xhr.send(body)
+
+			}
+		}
+			function LoadData(li){
+				var xhr = new XMLHttpRequest();
+				var path;
+				if(li.innerHTML == "Перегляд"){
+					path = "/list";
+				}
+				else {
+					path = "/form";
+				}
+				xhr.open("GET", path, true)
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						if(li.innerHTML == "Перегляд"){
+							ParsJson(xhr.responseText, content);
+							return
+						}
+						content.innerHTML = xhr.responseText;
+					}
+				}
+			}
+			function ParsJson(file, content){
+				/*content.innerHTML = "";
+				var ul = document.createElement("ul");
+				content.appendChild(ul);
+				file = JSON.parse(file);
+				for(i = 0; i< file.length; i++){
+					var li = document.createElement("li");
+					ul.appendChild(li);
+					li.innerHTML = file[i].lastname + " " + file[i].firstname + " " + file[i].salary;
+				}*/
+				file = JSON.parse(file);
+				content.innerHTML = "";
+				var mas = [];
+				for (var key in file[0]){
+					mas.push(key);
+				}
+				mas.push("");
+				var table = document.createElement("table");
+				content.appendChild(table);
+				var tr = document.createElement("tr");
+				table.appendChild(tr);
+				for (var i = 0; i< mas.length; i++){
+					var td = document.createElement("td");
+					tr.appendChild(td);
+					td.innerHTML = mas[i];
+					td.classList.add("header");
+				}
+				for(var i =0; i< file.length; i++){
+					tr = document.createElement("tr");
+					table.appendChild(tr);
+					for(var j = 0; j< mas.length - 1; j++){
+						td = document.createElement("td");
+						tr.appendChild(td);
+						td.innerHTML = file[i][mas[j]];
+					}
+					var td = document.createElement("td");
+					var btn = document.createElement("button");
+					btn.innerHTML = "delete";
+					btn.classList.add("btn");
+					td.appendChild(btn);
+					 btn.onclick = DelClick;
+					tr.appendChild(td);
+				}
+					}
+				function getSend(){
+					var inputs = document.querySelectorAll("form input[type = 'text']");
+					for(var i =0; i< inputs.length; i++){
+						if (inputs[i].value == "" || inputs[i].value == " "){
+							alert("введіть дані у всі поля");
+							return;
+						}
+						}
+						var xhr = new XMLHttpRequest();
+						var params = "lastname =" + encodeURIComponent(lastname.value) + "&firstname = " + encodeURIComponent(firstname.value) + "&salary = " + encodeURIComponent(salary.value);
+						xhr.open("GET", "/formget?" + params, true);
+						xhr.send();
+					
+					xhr.onreadystatechange = function(){
+							if(xhr.readyState == 4){
+								for(var i = 0; i< inputs.length; i++){
+									inputs[i].value = "";
+								}
+								alert(xhr.responseText);
+							}
+						}
+				}
+
+				function DelClick(){
+					var parent = this.parentNode.parentNode;
+					var id = parent.rowIndex - 1;
+					console.log(id);
+					var xhr = new XMLHttpRequest();
+					var body = "id =" + encodeURIComponent(id);
+					xhr.open("POST", "/formsendpost", true);
+					
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.onreadystatechange = function(){
+							if(xhr.readyState == 4){
+								alert(xhr.responseText);
+							}
+						}
+					xhr.send(body);
+				}
+
+		</script>
+	</head>
+	<body>
+		<div id="menu">
+			<ul>
+				<li class="active">Перегляд</li>
+				<li>Ввід</li>
+			</ul>
+		</div>
+		<div id="content">
+			
+		</div>
+		<!-- <form action="/myget" method="GET">
+			<input type="text" id="p1" name="myInput">
+			<input type="button" id="postsend" value="postsend"> 
+			<input type="submit" value="GET" name="">
+		</form>
+		<form action="/mypost" method="POST">
+			<input type="text" id="p1" name="myInput">
+			<input type="button" id="postsend" value="postsend"> 
+			<input type="submit" value="POST" name="">
+		</form> -->
+	</body>
+</html>
